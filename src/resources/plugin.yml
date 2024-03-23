@@ -1,0 +1,7 @@
+main: com.coderoria.syncedhearts.Main
+name: "SyncedHearts"
+version: 0.0.1
+api-version: 1.20
+author: CodeRoria
+website: https://coderoria.com
+depend: [ProtocolLib]

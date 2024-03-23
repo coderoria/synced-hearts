@@ -3,17 +3,24 @@
  */
 package com.coderoria.syncedhearts;
 
+import com.coderoria.syncedhearts.listener.HeartChange;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
+  public static Main plugin;
+  public ProtocolManager protocolManager;
+
   @Override
   public void onEnable() {
-
+    Main.plugin = this;
+    protocolManager = ProtocolLibrary.getProtocolManager();
+    HeartChange listener = new HeartChange();
+    Bukkit.getPluginManager().registerEvents(listener, this);
   }
 
-  public void onDisable() {
-    
-  }
-
+  public void onDisable() {}
 }
