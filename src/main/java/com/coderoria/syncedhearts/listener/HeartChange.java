@@ -23,6 +23,9 @@ public class HeartChange implements Listener {
     }
 
     Player p = (Player) ev.getEntity();
+    if (p.isOp()) {
+      return;
+    }
 
     /* Bukkit.broadcast(
       Component.text("+" + ev.getAmount())
@@ -34,7 +37,7 @@ public class HeartChange implements Listener {
     ); */
 
     for (Player p2 : Bukkit.getOnlinePlayers()) {
-      if (p2.equals(p)) continue;
+      if (p2.equals(p) || p2.isOp()) continue;
       final double finalHealth = p.getHealth() + ev.getAmount();
       p2.setHealth(finalHealth > 20.0 ? 20.0 : finalHealth);
     }
@@ -47,6 +50,9 @@ public class HeartChange implements Listener {
     }
 
     Player p = (Player) ev.getEntity();
+    if (p.isOp()) {
+      return;
+    }
 
     /* Bukkit.broadcast(
       Component.text("-" + ev.getFinalDamage())
@@ -58,7 +64,7 @@ public class HeartChange implements Listener {
     ); */
 
     for (Player p2 : Bukkit.getOnlinePlayers()) {
-      if (p2.equals(p)) continue;
+      if (p2.equals(p) || p2.isOp()) continue;
       final double finalHealth = p.getHealth() - ev.getFinalDamage();
       p2.setHealth(finalHealth < 0.0 ? 0.0 : finalHealth);
       p2.playSound(
@@ -79,7 +85,7 @@ public class HeartChange implements Listener {
     Player lPlayer = null;
     double lHealth = 20.0;
     for (Player p : Bukkit.getOnlinePlayers()) {
-      //TODO: if(p.isOp()) continue;
+      if (p.isOp()) continue;
       if (lPlayer == null || p.getHealth() < lHealth) {
         lPlayer = p;
         lHealth = p.getHealth();
@@ -87,7 +93,7 @@ public class HeartChange implements Listener {
     }
 
     for (Player p : Bukkit.getOnlinePlayers()) {
-      //TODO: if(p.isOp()) continue;
+      if (p.isOp()) continue;
       p.setHealth(lHealth);
     }
   }

@@ -34,8 +34,15 @@ public class TimerListener implements Listener {
     if (listener != null) {
       return;
     }
-    //TODO: do not count OP players
-    if (Bukkit.getOnlinePlayers().size() < 2) {
+
+    if (
+      Bukkit.getOnlinePlayers()
+        .stream()
+        .filter(player -> !player.isOp())
+        .toList()
+        .size() <
+      2
+    ) {
       return;
     }
     listener = new MovementListener();
@@ -45,8 +52,15 @@ public class TimerListener implements Listener {
 
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent ev) {
-    //TODO: do not count OP players
-    if (Bukkit.getOnlinePlayers().size() - 1 >= 2) {
+    if (
+      Bukkit.getOnlinePlayers()
+          .stream()
+          .filter(player -> !player.isOp())
+          .toList()
+          .size() -
+        1 >=
+      2
+    ) {
       return;
     }
 
@@ -130,10 +144,9 @@ public class TimerListener implements Listener {
 
       if (ev.getEntityType() == EntityType.PLAYER) {
         Player p = (Player) ev.getEntity();
-        //TODO: Check if OP
-        /* if(p.isOp()) {
+        if (p.isOp()) {
           return;
-        } */
+        }
       }
 
       endTime = getSpeedrunTime() + (new Date().getTime() - startTime);
