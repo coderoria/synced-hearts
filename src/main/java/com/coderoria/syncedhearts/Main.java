@@ -5,6 +5,7 @@ package com.coderoria.syncedhearts;
 
 import com.coderoria.syncedhearts.commands.ResetCommand;
 import com.coderoria.syncedhearts.listener.HeartChange;
+import com.coderoria.syncedhearts.listener.TimerListener;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public class Main extends JavaPlugin {
     protocolManager = ProtocolLibrary.getProtocolManager();
     HeartChange listener = new HeartChange();
     Bukkit.getPluginManager().registerEvents(listener, this);
+    Bukkit.getPluginManager().registerEvents(new TimerListener(), plugin);
 
     Bukkit.getPluginCommand("reset").setExecutor(new ResetCommand());
   }
